@@ -45,6 +45,7 @@ namespace ClinicTracker
 
         private void Button_GetData(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show(AutoIt.AutoItX.WinGetTitle("eCW"));
             string str = AutoIt.AutoItX.WinGetText("eCW");
            MessageBox.Show(str);
         }
