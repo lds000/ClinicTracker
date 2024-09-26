@@ -1,0 +1,161 @@
+﻿
+LS
+Toggle Dropdown
+0
+
+E 0
+S 3
+D 0
+R 0
+T 0
+L 8
+M X
+Action
+Favorites
+Menu
+Practice
+Registry
+Referrals
+Messages
+Documents
+Billing
+Analytics
+healow
+healow Insights
+ Office Visits
+ 
+09/26/2024
+  
+ASK EVA ?
+Providers
+Resources
+All
+Provider
+All
+Facility
+MERIDIAN UC
+Appt Time
+All Day
+View
+All
+Sort by
+Appt Time
+filter
+			
+V
+NON	08:00 AM	Smith,Joe	BLUE CROSS OF IDAHO	MAJ	Labs for Johnson	M	49 Y	CHK	0	
+-
+-
+
+			
+V
+VAX	08:00 AM	Smith,Joe	REGENCE BLUE SHIELD	DBH	Flu Shot	M	67 Y	CHK	0	
+-
+-
+
+			
+V
+UC	08:00 AM	Smith,Joe	BLUE CROSS OF IDAHO	LDS	Blood in urine, pelvic pain	M	43 Y	CHK	0	
+08:02 AM
+01 h, 00 m
+-
+
+			
+V
+NON	08:15 AM	Smith,Joe	AMERIBEN SOLUTIONS	LDS	OH DS	F	29 Y	CHK	0	
+-
+-
+
+			
+V
+UC	08:15 AM	Smith,Joe	HIGHMARK BLUE CROSS BLUE SHIELD	TKD	BIG 6-Day 10 of chest pain, difficu ...	F	29 Y	CHK	0	
+08:17 AM
+23 m
+-
+
+			
+V
+UC	08:20 AM	Smith,Joe	SELECTHEALTH (COMMUNITY CARE NOT CONTRACTED)	LDS	Congestion, fever, chills, cough, b ...	M	49 Y	CHK	0	
+08:22 AM
+33 m
+-
+
+			
+V
+UC	08:20 AM	Smith,Joe	REGENCE BLUE SHIELD	TKD	left ear pain	M	17 Y	CHK	0	
+08:23 AM
+39 m
+-
+
+			
+V
+UC	08:25 AM	Smith,Joe	REGENCE BLUE SHIELD	LDS	Severe stomach cramps, headache, na ...	M	16 Y	ARR	0	
+08:24 AM
+01 h, 03 m
+4tp
+LABS	
+04 m
+
+			
+V
+NON	08:30 AM	Smith,Joe	REGENCE BLUE SHIELD	MAJ	Labs for Johnson	M	34 Y	CHK	0	
+-
+-
+
+			
+V
+UC	08:45 AM	Smith,Joe	BLUE CROSS OF IDAHO	TKD	Rash all over, itchy	F	38 Y	CHK	0	
+08:47 AM
+33 m
+-
+
+			
+V
+NON	08:55 AM	Smith,Joe	MEDICAID	PFP	Labs for Phail	F	26 Y	CHK	0	
+-
+-
+
+			
+V
+UC	08:55 AM	Smith,Joe	VETERANS VA UC PLAN	LDS	Lump on left leg for 8-9 days, tend ...	M	39 Y	ARR	0	
+09:01 AM
+26 m
+5tp
+IN	
+00 m
+
+			
+V
+UC	09:10 AM	Smith,Joe	REGENCE BLUE SHIELD PPO (SLHP)	TKD	Painful, frequent urination, cloudy ...	F	41 Y	ARR	0	
+09:13 AM
+14 m
+2ns
+IN	
+00 m
+
+			
+V
+UC	09:15 AM	Smith,Joe	ST LUKES HEALTH PLAN FIRST HEALTH NETWORK	LDS	Left middle toe, possible infection	F	10Y 3M	ARR	0	
+09:22 AM
+05 m
+IN	
+00 m
+
+			
+V
+NON	09:20 AM	Smith,Joe	UNITED HEALTHCARE	MAJ	Labs for Johnson	M	48 Y	LAB	0	
+-
+bm
+
+			
+V
+UC Online	10:00 AM	Smith,Joe	SELECTHEALTH COMMERCIAL (LUKES)		severe depression	M	26 Y	PEN	0	
+-
+1000
+
+		 		V			Visit type	Appt time	Patient Name	Insurance	P/R	Reason	Sex	Age	Visit Status	HCC Un-Reviewed	Arr Time	Duration	Room	Status	Cycle Time	Notes Sts	Healow Connect
+No. of Result 
+100
+ Page 
+1
+ of 1 Total Counts : 16
