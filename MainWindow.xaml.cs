@@ -67,6 +67,7 @@ namespace ClinicTracker
                 GetWindowText(eCWWindowHandle, sb, sb.Capacity);
                 string eCWWindowContentText = sb.ToString();
 
+                MessageBox.Show(GetControlText(eCWWindowHandle)); // this is the text of the eCW window (not the title of the window) (it is the text of the window content
                 // process the window content text
                 // ...
             }
@@ -97,6 +98,7 @@ namespace ClinicTracker
                 if (!IsWindowVisible(hWnd))
                     return true;
 
+
                 int length = GetWindowTextLength(hWnd);
                 if (length == 0)
                     return true;
@@ -110,6 +112,31 @@ namespace ClinicTracker
             }, 0);
 
             return windows;
+        }
+        [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SendMessage(int hWnd, int Msg, int wparam, int lparam);
+
+        const int WM_GETTEXT = 0x000D;
+        const int WM_GETTEXTLENGTH = 0x000E;
+
+        public string GetControlText(IntPtr hWnd)
+        {
+
+            // Get the size of the string required to hold the window title (including trailing null.) 
+            Int32 titleSize = SendMessage((int)hWnd, WM_GETTEXTLENGTH, 0, 0).ToInt32();
+
+            // If titleSize is 0, there is no title so return an empty string (or null)
+            if (titleSize == 0)
+                return String.Empty;
+
+            StringBuilder title = new StringBuilder(titleSize + 1);
+
+            SendMessage(hWnd, (int)WM_GETTEXT, title.Capacity, title);
+
+            return title.ToString();
         }
 
         private delegate bool EnumWindowsProc(HWND hWnd, int lParam);
