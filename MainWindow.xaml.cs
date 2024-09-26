@@ -52,6 +52,7 @@ namespace ClinicTracker
                 if (tmpwin.Value.Contains("eCW"))
                 {
                     MessageBox.Show(tmpwin.Value);
+                    MessageBox.Show(GetControlText(tmpwin.Key)); // this is the text of the eCW window (not the title of the window) (it is the text of the window content
                 }
             } // end foreach (var tmpwin in GetOpenWindows()
 
@@ -67,7 +68,6 @@ namespace ClinicTracker
                 GetWindowText(eCWWindowHandle, sb, sb.Capacity);
                 string eCWWindowContentText = sb.ToString();
 
-                MessageBox.Show(GetControlText(eCWWindowHandle)); // this is the text of the eCW window (not the title of the window) (it is the text of the window content
                 // process the window content text
                 // ...
             }
