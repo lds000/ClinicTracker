@@ -35,12 +35,14 @@
             <Label Grid.Row="3" Grid.Column="1" Name="lblNonVisits" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding NonVisitPatientsSeen}"></Label>
             <Label Grid.Row="4" FontSize="20" Style="{StaticResource MyLblStyle}">Drug Screen</Label>
             <Label Grid.Row="4" Grid.Column="1" Name="lblDrugScreens" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding DrugScreenVisitCount}"></Label>
-            <Label Grid.Row="5" FontSize="20" Style="{StaticResource MyLblStyle}">2 hours</Label>
-            <Label Grid.Row="5" Grid.Column="1" Name="lbl2HrCount" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding PatientsSeenLast2Hours}"></Label>
-            <Label Grid.Row="6" FontSize="20" Style="{StaticResource MyLblStyle}">Projected</Label>
-            <Label Grid.Row="6" Grid.Column="1" Name="lblProjectedCount" FontSize="20" Style="{StaticResource MyLblStyle}">##</Label>
+            <Label Grid.Row="5" FontSize="20" Style="{StaticResource MyLblStyle}">Vax</Label>
+            <Label Grid.Row="5" Grid.Column="1" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding VaxVisitCount}"></Label>
+            <Label Grid.Row="6" FontSize="20" Style="{StaticResource MyLblStyle}">2 hours</Label>
+            <Label Grid.Row="6" Grid.Column="1" Name="lbl2HrCount" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding PatientsSeenLast2Hours}"></Label>
+            <Label Grid.Row="7" FontSize="20" Style="{StaticResource MyLblStyle}">Projected</Label>
+            <Label Grid.Row="7" Grid.Column="1" Name="lblProjectedCount" FontSize="20" Style="{StaticResource MyLblStyle}">##</Label>
         </Grid>
-        <StackPanel Orientation="Horizontal" Name="spHisto"></StackPanel>
+        <ContentControl Content="{Binding HistoPanel}"></ContentControl>
 
         <StackPanel Orientation="Horizontal">
             <Label Style="{StaticResource MyLblStyle}" HorizontalAlignment="Center" FontSize="12">Generated:</Label>

@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AutoIt;
+using System.Diagnostics;
+using System.Threading;
 
 namespace ClinicTracker
 {
@@ -21,16 +23,19 @@ namespace ClinicTracker
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        ClinicStatusReportVM _ClinicStatusReportVM;
+
         public MainWindow()
         {
             InitializeComponent();
 
             // Set up the view model
-            ClinicStatusReportVM vm = new ClinicStatusReportVM();
+            _ClinicStatusReportVM = new ClinicStatusReportVM();
 
             //load vm.ClinicScheduleRawString with the contents of the file
-            vm.ClinicScheduleRawString = File.ReadAllText("SampleScreenCaptureText.txt");
-            this.DataContext = vm;
+            _ClinicStatusReportVM.ClinicScheduleRawString = File.ReadAllText("SampleScreenCaptureText.txt");
+            this.DataContext = _ClinicStatusReportVM;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -45,9 +50,36 @@ namespace ClinicTracker
 
         private void Button_GetData(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(AutoIt.AutoItX.WinGetTitle("eCW"));
-            string str = AutoIt.AutoItX.WinGetText("eCW");
-           MessageBox.Show(str);
+
+            Process[] processlist = Process.GetProcesses();
+
+            foreach (Process process in processlist)
+            {
+                if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                {
+
+                    if (process.MainWindowTitle.Contains("eCW"))
+                    {
+                        string strTitle = process.MainWindowTitle;
+                        AutoIt.AutoItX.WinActivate(strTitle);
+                        int iColorCheck = AutoIt.AutoItX.PixelGetColor(60, 150);
+                        if (iColorCheck != 15333631)
+                        {
+                            MessageBox.Show("Please make sure eCW has the schedule pulled up.");
+                            return;
+                        }
+
+                        var tmpPos = AutoIt.AutoItX.MouseGetPos();
+                        AutoIt.AutoItX.MouseClick("LEFT", 60, 150, 1, 0);
+                        AutoIt.AutoItX.Send("^a^c");
+                        AutoIt.AutoItX.MouseMove(tmpPos.X,tmpPos.Y, 0);
+                        Thread.Sleep(500);
+                        AutoIt.AutoItX.MouseClick("LEFT", 60, 150, 1, 0);
+                        AutoIt.AutoItX.MouseMove(tmpPos.X, tmpPos.Y, 0);
+                        _ClinicStatusReportVM.ClinicScheduleRawString = AutoIt.AutoItX.ClipGet();
+                    }
+                }
+            }
         }
 
     }

@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Shapes;
 
 namespace ClinicTracker
@@ -185,6 +187,20 @@ namespace ClinicTracker
             }
         }
 
+        private int _vaxVisitCount = 0;
+        public int VaxVisitCount
+        {
+            get
+            {
+                return _vaxVisitCount;
+            }
+            set
+            {
+                _vaxVisitCount = value;
+                OnPropertyChanged(nameof(VaxVisitCount));
+            }
+        }
+
         /// <summary>
         /// Property that returns the a string of a decimal number representing the number of hours that have passed since 8:00 this morning
         /// </summary>
@@ -195,6 +211,36 @@ namespace ClinicTracker
                 return HoursOpen.ToString("0.0");
             }
         }
+
+
+        private int[] visitHistogramData = new int[12];
+        private int[] VisitHistogramData
+        {
+            get
+            {
+                return visitHistogramData;
+            }
+            set
+            {
+                visitHistogramData = value;
+                OnPropertyChanged(nameof(VisitHistogramData));
+            }
+        }
+
+        private int[] scheduledHistogramData = new int[12];
+        private int[] ScheduledHistogramData
+        {
+            get
+            {
+                return scheduledHistogramData;
+            }
+            set
+            {
+                scheduledHistogramData = value;
+                OnPropertyChanged(nameof(ScheduledHistogramData));
+            }
+        }
+
 
         private int _patientsSeenLast2Hours = 0;
         /// <summary>
@@ -226,9 +272,16 @@ namespace ClinicTracker
             set
             {
                 _clinicScheduleRawString = value;
+                PatientsWaiting = 0;
+                PatientsSeen = 0;
+                NonVisitPatientsSeen = 0;
+                DrugScreenVisitCount = 0;
+                PatientsSeenLast2Hours = 0;
+                PatientsScheduled = 0;
+                VaxVisitCount = 0;
+                VisitHistogramData = new int[12];
+                ScheduledHistogramData = new int[12];
 
-                int[] iVisitHistogramData = new int[12];
-                int[] iScheduleHistogramData = new int[12];
 
                 // Parse the raw string to get the clinic name, date, hours open, patients seen, patients waiting, patients scheduled, non-visit patients seen, and patients seen last 2 hours.
                 using (StringReader reader = new StringReader(_clinicScheduleRawString))
@@ -259,15 +312,22 @@ namespace ClinicTracker
                         {
                             /// if the first column contains "NON", it is a non-visit line
                             if (splitContent[0] == "NON")
-
-                                NonVisitPatientsSeen++;
-
                             /// if the 6th column contains "OH DS", it is also a drug screen
                             {
                                 if (splitContent[5].ToLower() == "oh ds")
                                     DrugScreenVisitCount++;
+                                else
+                                {
+                                    NonVisitPatientsSeen++;
+                                }
 
                             }
+
+
+                            if (splitContent[0] == "VAX")
+
+                                VaxVisitCount++;
+
 
                             /// if the first column contains "UC", it is a UC visit line
                             if (splitContent[0].StartsWith("UC"))
@@ -285,7 +345,7 @@ namespace ClinicTracker
                                         if ((tAfter8.TotalMinutes >= i * 60) && tAfter8.TotalMinutes < (i + 1) * 60)
                                         {
                                             Console.WriteLine(splitContent[1] + " added to " + i + "\n");
-                                            iScheduleHistogramData[i]++;
+                                            ScheduledHistogramData[i]++;
                                         }
                                     }
                                     PatientsScheduled++;
@@ -301,13 +361,13 @@ namespace ClinicTracker
                                     if (t.TotalMinutes <= 120)
                                         PatientsSeenLast2Hours++;
                                     if (tAfter8.TotalMinutes < 0)
-                                        iVisitHistogramData[0]++;
+                                        VisitHistogramData[0]++;
                                     for (int i = 0; i <= 11; i++)
                                     {
                                         if ((tAfter8.TotalMinutes >= i * 60) && tAfter8.TotalMinutes < (i + 1) * 60)
                                         {
                                             Console.WriteLine(splitContent[1] + " added to " + i + "\n");
-                                            iVisitHistogramData[i]++;
+                                            VisitHistogramData[i]++;
                                         }
                                     }
 
@@ -318,6 +378,94 @@ namespace ClinicTracker
                 }
                 OnPropertyChanged(nameof(HoursOpenString));
                 OnPropertyChanged(nameof(ClinicScheduleRawString));
+                OnPropertyChanged(nameof(HistoPanel));
+            }
+        }
+
+        public StackPanel HistoPanel
+        {
+            get
+            {
+                StackPanel spHisto = new StackPanel();
+                spHisto.Orientation = Orientation.Horizontal;
+                for (int i = 0; i <= 11; i++)
+                {
+                    Rectangle myRect = new Rectangle();
+                    myRect.Stroke = System.Windows.Media.Brushes.Black;
+                    myRect.Fill = System.Windows.Media.Brushes.Lime;
+                    if (VisitHistogramData[i] >= 4)
+                        myRect.Fill = System.Windows.Media.Brushes.Yellow;
+                    if (VisitHistogramData[i] >= 7)
+                        myRect.Fill = System.Windows.Media.Brushes.Red;
+                    myRect.HorizontalAlignment = HorizontalAlignment.Left;
+                    myRect.VerticalAlignment = VerticalAlignment.Bottom;
+                    myRect.Height = 10 * VisitHistogramData[i];
+                    myRect.Width = 50;
+                    myRect.RadiusX = 5;
+                    myRect.RadiusY = 5;
+
+                    Rectangle myRect2 = new Rectangle();
+                    myRect2.Stroke = System.Windows.Media.Brushes.Black;
+                    myRect2.Fill = System.Windows.Media.Brushes.Gray;
+                    myRect2.HorizontalAlignment = HorizontalAlignment.Left;
+                    myRect2.VerticalAlignment = VerticalAlignment.Bottom;
+                    myRect2.Height = 10 * ScheduledHistogramData[i];
+                    myRect2.Width = 50;
+                    myRect2.RadiusX = 5;
+                    myRect2.RadiusY = 5;
+
+
+                    StackPanel tmpSP = new StackPanel();
+                    tmpSP.Orientation = Orientation.Vertical;
+                    tmpSP.VerticalAlignment = VerticalAlignment.Bottom;
+                    tmpSP.HorizontalAlignment = HorizontalAlignment.Center;
+
+                    string lampm = "AM";
+
+                    StackPanel sptimelbl = new StackPanel();
+
+                    Label l = new Label();
+                    l.Padding = new Thickness(0);
+                    l.Margin = new Thickness(0);
+                    int tmpt = i + 8;
+                    if (tmpt > 12)
+                    {
+                        lampm = "PM";
+                        tmpt = tmpt - 12;
+                    }
+                    l.Content = tmpt;
+                    l.Background = System.Windows.Media.Brushes.Black;
+                    l.Foreground = System.Windows.Media.Brushes.White;
+                    l.HorizontalAlignment = HorizontalAlignment.Left;
+
+                    l.FontSize = 20;
+
+                    Label l2 = new Label();
+                    l2.Margin = new Thickness(0);
+                    l2.Padding = new Thickness(0);
+                    l2.Content = lampm;
+                    l2.Background = System.Windows.Media.Brushes.Black;
+                    l2.Foreground = System.Windows.Media.Brushes.White;
+                    l2.HorizontalAlignment = HorizontalAlignment.Right;
+
+                    l2.FontSize = 10;
+
+
+                    sptimelbl.Orientation = Orientation.Horizontal;
+                    sptimelbl.HorizontalAlignment = HorizontalAlignment.Center;
+                    sptimelbl.Children.Add(l);
+                    sptimelbl.Children.Add(l2);
+                    sptimelbl.Margin = new Thickness(0);
+
+                    tmpSP.Children.Add(myRect2);
+                    tmpSP.Children.Add(myRect);
+                    tmpSP.Children.Add(sptimelbl);
+
+                    spHisto.Children.Add(tmpSP);
+
+                }
+                return spHisto;
+
             }
         }
     }
