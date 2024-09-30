@@ -259,6 +259,20 @@ namespace ClinicTracker
             }
         }
 
+        /// <summary>
+        /// How many patients have been seen the last 2 hours.
+        /// </summary>
+        public int ProjectedNumber
+        {
+            get
+            {
+                if (HoursOpen < 1)
+                    return 0;
+                var tmpcount = PatientsSeen * 12 / HoursOpen;
+                return (int)Math.Round(tmpcount);
+            }
+        }
+
         private string _clinicScheduleRawString = string.Empty;
         /// <summary>
         /// A string that contains the raw text from a screen capture of the clinic schedule for today.
@@ -379,6 +393,7 @@ namespace ClinicTracker
                 OnPropertyChanged(nameof(HoursOpenString));
                 OnPropertyChanged(nameof(ClinicScheduleRawString));
                 OnPropertyChanged(nameof(HistoPanel));
+                OnPropertyChanged(nameof(ProjectedNumber));
             }
         }
 

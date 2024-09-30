@@ -40,7 +40,7 @@
             <Label Grid.Row="6" FontSize="20" Style="{StaticResource MyLblStyle}">2 hours</Label>
             <Label Grid.Row="6" Grid.Column="1" Name="lbl2HrCount" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding PatientsSeenLast2Hours}"></Label>
             <Label Grid.Row="7" FontSize="20" Style="{StaticResource MyLblStyle}">Projected</Label>
-            <Label Grid.Row="7" Grid.Column="1" Name="lblProjectedCount" FontSize="20" Style="{StaticResource MyLblStyle}">##</Label>
+            <Label Grid.Row="7" Grid.Column="1" Name="lblProjectedCount" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding ProjectedNumber}"></Label>
         </Grid>
         <ContentControl Content="{Binding HistoPanel}"></ContentControl>
 
