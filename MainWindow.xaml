@@ -30,7 +30,7 @@
             <Label Grid.Row="1" FontSize="20" Style="{StaticResource MyLblStyle}">Hours</Label>
             <Label Grid.Row="1" Grid.Column="1" Name="lblTotalHours" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding HoursOpenString}"></Label>
             <Label Grid.Row="2" FontSize="20" Style="{StaticResource MyLblStyle}">Patients</Label>
-            <Label Grid.Row="2" Grid.Column="1" Name="lblTotalVisits" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding ClinicStatus}"></Label>
+            <Label Grid.Row="2" Grid.Column="1" Name="lblTotalVisits" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding ClinicStatus}"  Foreground="{Binding PatientsSeenColor}"></Label>
             <Label Grid.Row="3" FontSize="20" Style="{StaticResource MyLblStyle}">Non Visit</Label>
             <Label Grid.Row="3" Grid.Column="1" Name="lblNonVisits" FontSize="20" Style="{StaticResource MyLblStyle}" Content="{Binding NonVisitPatientsSeen}"></Label>
             <Label Grid.Row="4" FontSize="20" Style="{StaticResource MyLblStyle}">Drug Screen</Label>

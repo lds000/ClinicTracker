@@ -116,6 +116,19 @@ namespace ClinicTracker
             }
         }
 
+        //create a property that will give a WPF color based on the number of patients seen if over 7 then red, if over 4 then yellow, otherwise green
+        public System.Windows.Media.Brush PatientsSeenColor
+        {
+            get
+            {
+                if (PatientsSeen >= 7)
+                    return System.Windows.Media.Brushes.Red;
+                if (PatientsSeen >= 4)
+                    return System.Windows.Media.Brushes.Yellow;
+                return System.Windows.Media.Brushes.Lime;
+            }
+        }
+
         /// <summary>
         /// property that returns the sum of PatientsSeen and PatientsWaiting and is updated when either of those properties are updated.
         /// </summary>
