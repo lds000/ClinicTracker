@@ -61,6 +61,8 @@ namespace ClinicTracker
         {
             get
             {
+                if ((DateTime.Now - ClinicDate).Days >= 1)
+                    return 0;
                 //double that represents the hours elapsed since 8:00 AM today
                 return (DateTime.Now - DateTime.Parse("8:00 AM")).TotalHours;
             }
@@ -113,6 +115,7 @@ namespace ClinicTracker
                 OnPropertyChanged(nameof(PatientsWaiting));
                 OnPropertyChanged(nameof(ScheduledAndSeenCount));
                 OnPropertyChanged(nameof(ClinicStatus));
+                OnPropertyChanged(nameof(PatientsSeenColor));
             }
         }
 
@@ -403,6 +406,8 @@ namespace ClinicTracker
                         }
                     }
                 }
+                if (HoursOpen == 0)
+                    PatientsSeenLast2Hours = 0;
                 OnPropertyChanged(nameof(HoursOpenString));
                 OnPropertyChanged(nameof(ClinicScheduleRawString));
                 OnPropertyChanged(nameof(HistoPanel));
