@@ -68,7 +68,6 @@ namespace ClinicTracker
                             MessageBox.Show("Please make sure eCW has the schedule pulled up.");
                             return;
                         }
-
                         var tmpPos = AutoIt.AutoItX.MouseGetPos();
                         AutoIt.AutoItX.MouseClick("LEFT", 60, 150, 1, 0);
                         AutoIt.AutoItX.Send("^a^c");
